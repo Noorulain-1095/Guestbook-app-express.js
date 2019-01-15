@@ -1,0 +1,66 @@
+<% include header.ejs %>
+		<div class="ui raised very padded container segment">
+			<div class="ui centered grid">
+			    <div class="ten wide column">
+			    	<img src="assets/ace.png" width="50px;height:auto;">
+			    	<h1 style="margin-bottom: 0">View all Guests</h1>
+					<% if (guests.length > 0) {%>
+			    	<div class="ui divided items">
+						<% guests.forEach((guest, index) => { %>
+				    	<div class="item">
+				    	    <div class="content">
+				    	      	<a class="header"><%= guest.user_name %></a>
+				    	      	<div class="meta">
+				    	        	<span class="cinema"><%= guest.email %></span>
+				    	      	</div>
+				    	      	<div class="description">
+				    	        	<p><%= guest.comment %></p>
+				    	      	</div>
+				    	      	<div class="extra">
+				    	        	<a href="/edit/<%= guest.id %>">
+				    	        		<button class="mini ui button" >
+									  		Edit
+										</button>
+									</a>
+				    	        	<div class="ui right floated delete negative button" >
+							          	Delete Entry
+							          	<i class="right trash outline icon"></i>
+							        </div>
+				    	      	</div>
+				    	    </div>
+							<div class="ui small modal">
+								<div class="header">
+								  Delete This Entry
+								</div>
+								<div class="content">
+								  <p>Are you sure you want to delete this entry?</p>
+								</div>
+								<div class="actions">
+								  <div class="ui negative button">
+									No
+								  </div>
+								  <a href="/delete/<%= guest.id %>">
+								  <div class="ui positive right labeled icon button">
+									Yes
+									<i class="checkmark icon"></i>
+								  </div>
+								  </a>
+								</div>
+							</div>
+				    	</div>
+						<% }) %>
+			    	</div>
+				 <% } else { %>
+					<p class="text-center">No Guests found. Go <a href="/add" >here</a> to add guests.</p>
+					<% } %>
+			    </div>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript">
+		$('.small.modal')
+		  .modal('attach events', '.delete.button', 'show');
+		;
+	</script>
+</html>
